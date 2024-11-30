@@ -1,0 +1,31 @@
+public class cotizacionController {
+    public String pago { get; set; }
+    public Contact con { get; set; }
+    public List<String> fechasPagos { get; set; }
+
+    public cotizacionController(){
+        con = [SELECT Id, FirstName, LastName, Forma_de_Pago__c, Costo_Final__c, Descuentos__c, Periodo__c
+               FROM Contact
+               WHERE Id = :ApexPages.currentPage().getParameters().get('id')];
+        pago = con.Forma_de_Pago__c;
+        pagoMeses();
+    }
+
+    public void pagoMeses(){
+        fechasPagos = new List<String>();
+
+        if(con.Forma_de_Pago__c == 'Contado'){ fechasPagos.add('Inscripción: Julio 10'); }
+        else{
+            Integer n;
+        	if(con.Periodo__c == 'Semestral'){ n = 12; }
+        	else{ n = 10; }
+
+        	Integer anio = Date.today().year();
+        	for(Integer mes = 6; mes < n; mes++){
+            	Date fecha = Date.newInstance(anio, mes, 10);
+            	String fechaStr = fecha.format();
+            	fechasPagos.add(fechaStr);
+        	}
+        }
+    }
+}

@@ -1,0 +1,7 @@
+trigger cotizacionTrigger on Contact (after insert, after update) {
+    for(Contact rec: Trigger.new){
+        if(rec.Cantidad_Materias__c > 0){
+     		SendEmail.mailPDF(rec.Id);
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<apex:page controller="cotizacionController" renderAs="pdf">
+    <apex:pageBlock title="Cotización Inscripción">
+    	<apex:pageBlockSection columns="2">
+            <apex:outputField value="{!con.LastName}"/>
+            <apex:outputField value="{!con.Descuentos__c}"/>
+            <apex:outputField value="{!con.FirstName}"/>
+            <apex:outputField value="{!con.Costo_Final__c}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+            <apex:outputField value="{!con.Forma_de_Pago__c}"/>
+            <p>
+                Fechas de pago de colegiatura:
+            </p>
+        	<apex:repeat value="{!fechasPagos}" var="fecha">
+                <li>{!fecha}</li>
+            </apex:repeat>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>
